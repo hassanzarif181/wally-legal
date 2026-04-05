@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal — Wally</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --text-primary:   #111827;
+      --text-secondary: #4b5563;
+      --text-muted:     #6b7280;
+      --border:         #e5e7eb;
+      --bg:             #ffffff;
+      --accent:         #1d4ed8;
+      --accent-hover:   #1e40af;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .app-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+      border-radius: 18px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-icon span {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+    }
+
+    .app-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .link-list {
+      list-style: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .link-list li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .link-list li:last-child {
+      border-bottom: none;
+    }
+
+    .link-list a,
+    .link-list .coming-soon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.12s;
+    }
+
+    .link-list a {
+      color: var(--text-primary);
+    }
+
+    .link-list a:hover {
+      background: #f8fafc;
+    }
+
+    .link-list .coming-soon {
+      color: var(--text-muted);
+      cursor: default;
+    }
+
+    .link-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .link-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .icon-privacy  { background: #eff6ff; }
+    .icon-terms    { background: #f0fdf4; }
+
+    .link-desc {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .link-text-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: #f3f4f6;
+      color: var(--text-muted);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    .chevron {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="app-icon" aria-hidden="true">
+      <span>W</span>
+    </div>
+
+    <p class="app-name">Wally — Personal Finance</p>
+    <h1>Legal</h1>
+    <p class="subtitle">Legal documents and policies for the Wally app.</p>
+
+    <ul class="link-list">
+
+      <!-- Privacy Policy -->
+      <li>
+        <a href="./privacy-policy.html">
+          <span class="link-label">
+            <span class="link-icon icon-privacy" aria-hidden="true">🔒</span>
+            <span class="link-text-block">
+              <span>Privacy Policy</span>
+              <span class="link-desc">Last updated April 2026</span>
+            </span>
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </a>
+      </li>
+
+      <!-- Terms of Service (coming soon) -->
+      <li>
+        <span class="coming-soon">
+          <span class="link-label">
+            <span class="link-icon icon-terms" aria-hidden="true">📄</span>
+            <span class="link-text-block">
+              <span>Terms of Service</span>
+              <span class="link-desc">Not yet published</span>
+            </span>
+          </span>
+          <span class="badge">Coming soon</span>
+        </span>
+      </li>
+
+    </ul>
+
+    <footer>
+      &copy; 2026 Hassan &nbsp;·&nbsp; Wally — Personal Finance
+    </footer>
+
+  </div>
+
+</body>
+</html>

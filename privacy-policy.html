@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Wally</title>
+  <link rel="canonical" href="https://hassanzarif181.github.io/wally-legal/privacy-policy" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --text-primary:   #111827;
+      --text-secondary: #4b5563;
+      --text-muted:     #6b7280;
+      --border:         #e5e7eb;
+      --bg:             #ffffff;
+      --accent:         #1d4ed8;
+      --accent-light:   #eff6ff;
+      --radius:         6px;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      padding: 40px 20px 80px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    header {
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .app-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Table of Contents ───────────────────── */
+    .toc {
+      background: var(--accent-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 48px;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+    }
+
+    .toc li {
+      margin-bottom: 4px;
+    }
+
+    .toc a {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Sections ────────────────────────────── */
+    section {
+      margin-bottom: 44px;
+    }
+
+    section h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Data table ──────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 16px 0;
+    }
+
+    .data-table th,
+    .data-table td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    .data-table thead th {
+      background: #f9fafb;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .data-table tbody td {
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .data-table tbody tr:nth-child(even) td {
+      background: #fafafa;
+    }
+
+    /* ── Highlight box ───────────────────────── */
+    .highlight-box {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-left: 4px solid #16a34a;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #15803d;
+    }
+
+    .highlight-box strong {
+      color: #14532d;
+    }
+
+    /* ── Contact box ─────────────────────────── */
+    .contact-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+    }
+
+    .contact-box p {
+      margin-bottom: 6px;
+    }
+
+    .contact-box a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    /* ── Responsive ──────────────────────────── */
+    @media (max-width: 480px) {
+      body { padding: 24px 16px 60px; }
+      header h1 { font-size: 1.6rem; }
+      .data-table { font-size: 0.8rem; }
+      .data-table th, .data-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <p class="app-name">Wally — Personal Finance</p>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: April 2026 &nbsp;·&nbsp; Effective immediately upon use</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc" aria-label="Table of contents">
+      <p class="toc-title">Contents</p>
+      <ol>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#information-we-collect">Information We Collect</a></li>
+        <li><a href="#how-we-use">How We Use Information</a></li>
+        <li><a href="#data-storage">Data Storage &amp; Security</a></li>
+        <li><a href="#third-party">Third-Party Services</a></li>
+        <li><a href="#childrens-privacy">Children's Privacy</a></li>
+        <li><a href="#changes">Changes to This Policy</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. Introduction -->
+    <section id="introduction">
+      <h2>1. Introduction</h2>
+      <p>
+        Wally ("the App", "we", "our") is a personal finance tracker developed by Hassan
+        ("Developer"). This Privacy Policy explains what data the App accesses, how it is
+        used, and the choices you have.
+      </p>
+      <p>
+        Wally is designed as a <strong>privacy-first, offline-first application</strong>. The
+        App does not operate servers, does not collect analytics, does not serve advertising,
+        and does not share your financial information with anyone. Your data lives on your
+        device unless you explicitly choose to back it up to your own Google Drive account.
+      </p>
+      <p>
+        By using Wally you agree to this policy. If you do not agree, please uninstall the App.
+      </p>
+    </section>
+
+    <!-- 2. Information We Collect -->
+    <section id="information-we-collect">
+      <h2>2. Information We Collect</h2>
+      <p>
+        The table below describes every category of data the App may access, where it is
+        stored, and whether it ever leaves your device.
+      </p>
+
+      <table class="data-table" aria-label="Data collection summary">
+        <thead>
+          <tr>
+            <th>Data type</th>
+            <th>Purpose</th>
+            <th>Stored</th>
+            <th>Transmitted?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Financial records<br><em>(transactions, wallets, budgets, debts)</em></td>
+            <td>Core app functionality</td>
+            <td>On-device (SQLite)</td>
+            <td>No — unless you enable Google Drive backup</td>
+          </tr>
+          <tr>
+            <td>Microphone / voice audio</td>
+            <td>Voice-input feature (speech to text)</td>
+            <td>Processed in RAM, never written to disk</td>
+            <td>No — speech recognition runs fully on-device</td>
+          </tr>
+          <tr>
+            <td>Location (GPS)</td>
+            <td>Tag a transaction with where it occurred (spending map)</td>
+            <td>On-device (SQLite), attached to individual transactions</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Biometric / PIN</td>
+            <td>App lock and authentication</td>
+            <td>On-device via system APIs; PIN stored as a hash only</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Google account name &amp; email</td>
+            <td>Authenticate Google Drive backup (optional)</td>
+            <td>Held in memory for the session; not written to our servers</td>
+            <td>To Google's OAuth endpoints only — we never see your password</td>
+          </tr>
+          <tr>
+            <td>Currency codes</td>
+            <td>Fetch live exchange rates</td>
+            <td>Cached on-device (&lt; 1 hour TTL)</td>
+            <td>Currency code pairs sent to exchangerate.host — no personal data</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <strong>We do not collect:</strong> your name, phone number, contacts, photos, browsing
+        history, installed apps, advertising identifiers, or crash/analytics telemetry of any kind.
+      </div>
+    </section>
+
+    <!-- 3. How We Use Information -->
+    <section id="how-we-use">
+      <h2>3. How We Use Information</h2>
+      <p>All data is used solely to provide the features you actively use:</p>
+      <ul style="padding-left: 20px; margin-bottom: 14px;">
+        <li style="margin-bottom: 8px; color: #4b5563; font-size: 0.95rem;">
+          <strong>Financial records</strong> — displayed in the transaction list, charts,
+          budgets, and reports inside the App.
+        </li>
+        <li style="margin-bottom: 8px; color: #4b5563; font-size: 0.95rem;">
+          <strong>Voice audio</strong> — converted to text on-device and discarded immediately.
+          The transcript is used to pre-fill the transaction form.
+        </li>
+        <li style="margin-bottom: 8px; color: #4b5563; font-size: 0.95rem;">
+          <strong>Location</strong> — attached to a transaction record when you choose to tag
+          it. Used to render your spending map.
+        </li>
+        <li style="margin-bottom: 8px; color: #4b5563; font-size: 0.95rem;">
+          <strong>Biometric / PIN</strong> — validates your identity to unlock the App.
+        </li>
+        <li style="margin-bottom: 8px; color: #4b5563; font-size: 0.95rem;">
+          <strong>Google account</strong> — authorises writing your encrypted backup file to
+          your own Google Drive. We do not read any other files in your Drive.
+        </li>
+        <li style="color: #4b5563; font-size: 0.95rem;">
+          <strong>Currency codes</strong> — passed to a public exchange-rate API to retrieve
+          the current conversion rate.
+        </li>
+      </ul>
+      <p>
+        We do not use any data for profiling, targeted advertising, or sharing with third
+        parties for their commercial purposes.
+      </p>
+    </section>
+
+    <!-- 4. Data Storage & Security -->
+    <section id="data-storage">
+      <h2>4. Data Storage &amp; Security</h2>
+      <p>
+        <strong>Local storage.</strong> All financial data is stored in a SQLite database in
+        the App's private storage directory. On Android this directory is sandboxed and
+        inaccessible to other apps unless your device is rooted.
+      </p>
+      <p>
+        <strong>App lock.</strong> Wally supports a PIN code and biometric lock (fingerprint /
+        face ID). Your PIN is stored as a SHA-256 hash — the plain-text PIN is never saved.
+        Biometric credentials are managed entirely by the operating system and are never
+        accessible to the App.
+      </p>
+      <p>
+        <strong>Google Drive backup.</strong> If you enable the optional backup feature, your
+        data is uploaded to your personal Google Drive account — an account that only you
+        control. The backup file is stored under your Drive's App Data folder, which is not
+        visible in the Drive file browser and cannot be accessed by other apps. We do not
+        have access to your Drive, your backup files, or their contents.
+      </p>
+      <p>
+        <strong>Data deletion.</strong> Because we hold no data on our servers, deleting the
+        App from your device deletes all local data. If you created a Google Drive backup,
+        you may delete it directly from your Google Drive settings at any time.
+      </p>
+    </section>
+
+    <!-- 5. Third-Party Services -->
+    <section id="third-party">
+      <h2>5. Third-Party Services</h2>
+      <p>
+        Wally integrates with a minimal number of third-party services. None of them receive
+        your personal financial data.
+      </p>
+
+      <table class="data-table" aria-label="Third-party services">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Purpose</th>
+            <th>Data sent</th>
+            <th>Privacy policy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>exchangerate.host</td>
+            <td>Live currency exchange rates</td>
+            <td>Currency code pairs only (e.g. USD, EUR) — no user identifiers</td>
+            <td><a href="https://exchangerate.host/privacy" target="_blank" rel="noopener noreferrer">exchangerate.host/privacy</a></td>
+          </tr>
+          <tr>
+            <td>Google Sign-In &amp; Google Drive API</td>
+            <td>Optional backup to your personal Drive</td>
+            <td>OAuth token exchange only; backup file written to your Drive</td>
+            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td>On-device speech-to-text</td>
+            <td>Convert microphone audio to text for voice input</td>
+            <td>None — audio processed on-device only</td>
+            <td>N/A</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        The App contains no advertising SDKs, no marketing analytics libraries (e.g. Firebase
+        Analytics, Mixpanel, Amplitude), and no crash-reporting SDKs that transmit data to
+        third parties.
+      </p>
+    </section>
+
+    <!-- 6. Children's Privacy -->
+    <section id="childrens-privacy">
+      <h2>6. Children's Privacy</h2>
+      <p>
+        Wally is not directed at children under the age of 13. We do not knowingly collect
+        personal information from children. If you are a parent or guardian and believe your
+        child has provided personal information through the App, please contact us at the
+        address below and we will take steps to delete such information.
+      </p>
+    </section>
+
+    <!-- 7. Changes -->
+    <section id="changes">
+      <h2>7. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. When we do, we will revise the
+        "Last updated" date at the top of this page. For significant changes, we will include
+        an in-app notice on the next App launch.
+      </p>
+      <p>
+        We encourage you to review this policy periodically. Continued use of the App after
+        changes are posted constitutes your acceptance of the revised policy.
+      </p>
+      <p>
+        The canonical, always-current version of this policy is available at:<br />
+        <a href="https://hassanzarif181.github.io/wally-legal/privacy-policy"
+           style="color: #1d4ed8;">https://hassanzarif181.github.io/wally-legal/privacy-policy</a>
+      </p>
+    </section>
+
+    <!-- 8. Contact -->
+    <section id="contact">
+      <h2>8. Contact Us</h2>
+      <p>
+        If you have questions or concerns about this Privacy Policy or Wally's data practices,
+        please reach out:
+      </p>
+      <div class="contact-box">
+        <p><strong>Developer:</strong> Hassan</p>
+        <p><strong>App:</strong> Wally — Personal Finance</p>
+        <p><strong>Email:</strong> <a href="mailto:wallet.support@gmail.com">wallet.support@gmail.com</a></p>
+        <p><strong>Policy URL:</strong>
+          <a href="https://hassanzarif181.github.io/wally-legal/privacy-policy">
+            hassanzarif181.github.io/wally-legal/privacy-policy
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <span>&copy; 2026 Hassan. Wally — Personal Finance.</span>
+      <span>
+        <a href="./index.html">Legal home</a>
+        &nbsp;·&nbsp;
+        <a href="./privacy-policy.html">Privacy Policy</a>
+      </span>
+    </footer>
+
+  </div>
+</body>
+</html>
