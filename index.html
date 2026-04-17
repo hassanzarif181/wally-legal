@@ -3,134 +3,335 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Legal — Wally</title>
+  <meta name="google-site-verification" content="abe18f4e37ad2210" />
+  <title>Wally — Personal Finance</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --text-primary:   #111827;
-      --text-secondary: #4b5563;
-      --text-muted:     #6b7280;
-      --border:         #e5e7eb;
-      --bg:             #ffffff;
-      --accent:         #1d4ed8;
-      --accent-hover:   #1e40af;
+      --navy:          #0C1324;
+      --navy-mid:      #111827;
+      --navy-card:     rgba(255,255,255,0.05);
+      --navy-border:   rgba(255,255,255,0.08);
+      --blue:          #7BD0FF;
+      --purple:        #BDC2FF;
+      --blue-dim:      rgba(123,208,255,0.12);
+      --purple-dim:    rgba(189,194,255,0.10);
+      --text:          #E8EDF5;
+      --text-muted:    #8A96A8;
+      --text-dim:      #5A6478;
+      --income:        #4ade80;
+      --expense:       #f87171;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
+      overflow-x: hidden;
     }
 
-    .card {
-      max-width: 440px;
-      width: 100%;
+    /* ── SUBTLE MESH BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(123,208,255,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(189,194,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(12,19,36,0.80);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(123,208,255,0.2);
+    }
+
+    .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .nav-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 24px; }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    /* ── GLASS CARD BASE ── */
+    .glass {
+      background: var(--navy-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--navy-border);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* corner glow accent — blue bottom-left, purple top-right */
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 0% 100%, rgba(123,208,255,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(189,194,255,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 80px auto 64px;
+      padding: 0 24px;
       text-align: center;
     }
 
-    .app-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
-      border-radius: 18px;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .hero-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 26px;
+      margin: 0 auto 28px;
+      overflow: hidden;
+      border: 1px solid rgba(123,208,255,0.25);
+      box-shadow:
+        0 0 0 1px rgba(123,208,255,0.08),
+        0 8px 40px rgba(123,208,255,0.15),
+        0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .app-icon span {
-      font-size: 28px;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.03em;
-    }
+    .hero-logo img { width: 100%; height: 100%; object-fit: cover; }
 
-    .app-name {
-      font-size: 13px;
+    .hero-eyebrow {
+      font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── STORE BADGE ── */
+    .store-badges {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      transition: filter 0.15s, transform 0.15s;
+      letter-spacing: -0.01em;
+    }
+
+    .store-badge:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    .store-note { font-size: 0.75rem; color: var(--text-dim); }
+
+    /* ── FEATURES GRID ── */
+    .features {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto 72px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card {
+      padding: 22px 20px;
+    }
+
+    .feature-card .f-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
       margin-bottom: 6px;
     }
 
-    h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      margin-bottom: 8px;
+    .feature-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
     }
 
-    .subtitle {
-      font-size: 0.9rem;
+    /* ── STATS ROW ── */
+    .stats {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto 72px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat-card {
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      margin-bottom: 40px;
+      margin-top: 4px;
+    }
+
+    /* ── LEGAL SECTION ── */
+    .section-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+      padding-left: 4px;
     }
 
     .link-list {
       list-style: none;
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 16px;
       overflow: hidden;
+      background: var(--navy-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--navy-border);
     }
 
-    .link-list li {
-      border-bottom: 1px solid var(--border);
-    }
+    .link-list li { border-bottom: 1px solid var(--navy-border); }
+    .link-list li:last-child { border-bottom: none; }
 
-    .link-list li:last-child {
-      border-bottom: none;
-    }
-
-    .link-list a,
-    .link-list .coming-soon {
+    .link-list a {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 18px 20px;
-      font-size: 0.95rem;
       text-decoration: none;
+      color: var(--text);
       transition: background 0.12s;
     }
 
-    .link-list a {
-      color: var(--text-primary);
-    }
-
-    .link-list a:hover {
-      background: #f8fafc;
-    }
-
-    .link-list .coming-soon {
-      color: var(--text-muted);
-      cursor: default;
-    }
+    .link-list a:hover { background: rgba(123,208,255,0.06); }
 
     .link-label {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-weight: 500;
+      font-size: 0.9rem;
     }
 
     .link-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -138,65 +339,135 @@
       flex-shrink: 0;
     }
 
-    .icon-privacy  { background: #eff6ff; }
-    .icon-terms    { background: #f0fdf4; }
+    .icon-privacy  { background: rgba(123,208,255,0.12); }
+    .icon-terms    { background: rgba(189,194,255,0.12); }
+    .icon-support  { background: rgba(74,222,128,0.10); }
+
+    .link-text-block { display: flex; flex-direction: column; }
 
     .link-desc {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 400;
-      color: var(--text-muted);
-      margin-top: 1px;
+      color: var(--text-dim);
+      margin-top: 2px;
     }
 
-    .link-text-block {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+    .chevron { color: var(--text-dim); font-size: 1rem; }
 
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      background: #f3f4f6;
-      color: var(--text-muted);
-      border-radius: 4px;
-      padding: 2px 7px;
-    }
-
-    .chevron {
-      color: var(--text-muted);
-      font-size: 1rem;
-    }
-
+    /* ── FOOTER ── */
     footer {
-      margin-top: 40px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--navy-border);
+      padding: 28px 24px;
       text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
     }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 1.4rem; }
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+
+    footer a:hover { color: var(--blue); }
+
+    @media (max-width: 520px) {
+      .hero h1 { font-size: 1.9rem; }
+      .nav-links { display: none; }
+      .stats { grid-template-columns: repeat(3,1fr); gap: 10px; }
+      .stat-value { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-
-    <div class="app-icon" aria-hidden="true">
-      <span>W</span>
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="/">
+      <div class="nav-logo"><img src="./logo.png" alt="Wally" /></div>
+      <span class="nav-name">Wally</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#legal">Legal</a>
+      <a href="mailto:hassanzarif181@gmail.com">Support</a>
     </div>
+  </nav>
 
-    <p class="app-name">Wally — Personal Finance</p>
-    <h1>Legal</h1>
-    <p class="subtitle">Legal documents and policies for the Wally app.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-logo">
+      <img src="./logo.png" alt="Wally app icon" />
+    </div>
+    <p class="hero-eyebrow">Personal Finance App</p>
+    <h1>Your money,<br><span>fully under control.</span></h1>
+    <p>Wally is a private, offline-first finance app. Track wallets, budgets, and transactions — no ads, no subscriptions, no data sent anywhere.</p>
 
+    <div class="store-badges">
+      <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener">
+        ▶ &nbsp;Get it on Google Play
+      </a>
+    </div>
+    <p class="store-note">Android · Free download</p>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats" id="features">
+    <div class="stat-card glass">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Offline-first</div>
+    </div>
+    <div class="stat-card glass">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Data collected</div>
+    </div>
+    <div class="stat-card glass">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Languages</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature-card glass">
+      <div class="f-icon">🔒</div>
+      <h3>Private by Design</h3>
+      <p>All data lives on your device. No account needed, no server, no tracking.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="f-icon">🎙️</div>
+      <h3>Voice Input</h3>
+      <p>Add transactions by speaking. On-device AI parses your words instantly.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="f-icon">📊</div>
+      <h3>Budgets & Charts</h3>
+      <p>Set budgets per category and visualize spending trends with beautiful charts.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="f-icon">💱</div>
+      <h3>Multi-Currency</h3>
+      <p>Manage wallets in any currency with live exchange rate conversion.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="f-icon">🔁</div>
+      <h3>Recurring</h3>
+      <p>Schedule recurring transactions — subscriptions, rent, salary — automatically.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="f-icon">📤</div>
+      <h3>Export</h3>
+      <p>Export your data as CSV or PDF anytime. Your data, your format.</p>
+    </div>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="section-wrap" id="legal">
+    <p class="section-label">Legal &amp; Support</p>
     <ul class="link-list">
 
-      <!-- Privacy Policy -->
       <li>
         <a href="./privacy-policy.html">
           <span class="link-label">
@@ -206,11 +477,10 @@
               <span class="link-desc">Last updated April 2026</span>
             </span>
           </span>
-          <span class="chevron" aria-hidden="true">›</span>
+          <span class="chevron">›</span>
         </a>
       </li>
 
-      <!-- Terms of Service -->
       <li>
         <a href="./terms-of-service.html">
           <span class="link-label">
@@ -220,17 +490,31 @@
               <span class="link-desc">Last updated April 2026</span>
             </span>
           </span>
-          <span class="chevron" aria-hidden="true">›</span>
+          <span class="chevron">›</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="mailto:hassanzarif181@gmail.com">
+          <span class="link-label">
+            <span class="link-icon icon-support" aria-hidden="true">✉️</span>
+            <span class="link-text-block">
+              <span>Contact Support</span>
+              <span class="link-desc">hassanzarif181@gmail.com</span>
+            </span>
+          </span>
+          <span class="chevron">›</span>
         </a>
       </li>
 
     </ul>
-
-    <footer>
-      &copy; 2026 Hassan &nbsp;·&nbsp; Wally — Personal Finance
-    </footer>
-
   </div>
+
+  <footer>
+    &copy; 2026 Hassan &nbsp;·&nbsp; Wally — Personal Finance
+    &nbsp;·&nbsp; <a href="./privacy-policy.html">Privacy</a>
+    &nbsp;·&nbsp; <a href="./terms-of-service.html">Terms</a>
+  </footer>
 
 </body>
 </html>
