@@ -1,520 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="abe18f4e37ad2210" />
-  <title>Wally — Personal Finance</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:          #0C1324;
-      --navy-mid:      #111827;
-      --navy-card:     rgba(255,255,255,0.05);
-      --navy-border:   rgba(255,255,255,0.08);
-      --blue:          #7BD0FF;
-      --purple:        #BDC2FF;
-      --blue-dim:      rgba(123,208,255,0.12);
-      --purple-dim:    rgba(189,194,255,0.10);
-      --text:          #E8EDF5;
-      --text-muted:    #8A96A8;
-      --text-dim:      #5A6478;
-      --income:        #4ade80;
-      --expense:       #f87171;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      background: var(--navy);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── SUBTLE MESH BACKGROUND ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(123,208,255,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(189,194,255,0.05) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: 64px;
-      padding: 0 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(12,19,36,0.80);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--navy-border);
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .nav-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(123,208,255,0.2);
-    }
-
-    .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-    .nav-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    .nav-links { display: flex; gap: 24px; }
-
-    .nav-links a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .nav-links a:hover { color: var(--blue); }
-
-    /* ── GLASS CARD BASE ── */
-    .glass {
-      background: var(--navy-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--navy-border);
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* corner glow accent — blue bottom-left, purple top-right */
-    .glass::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at 0% 100%, rgba(123,208,255,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 100% 0%, rgba(189,194,255,0.10) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      z-index: 1;
-      max-width: 680px;
-      margin: 80px auto 64px;
-      padding: 0 24px;
-      text-align: center;
-    }
-
-    .hero-logo {
-      width: 96px;
-      height: 96px;
-      border-radius: 26px;
-      margin: 0 auto 28px;
-      overflow: hidden;
-      border: 1px solid rgba(123,208,255,0.25);
-      box-shadow:
-        0 0 0 1px rgba(123,208,255,0.08),
-        0 8px 40px rgba(123,208,255,0.15),
-        0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    .hero-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-    .hero-eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 12px;
-    }
-
-    .hero h1 {
-      font-size: 2.6rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.12;
-      color: var(--text);
-      margin-bottom: 18px;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      max-width: 500px;
-      margin: 0 auto 40px;
-    }
-
-    /* ── STORE BADGE ── */
-    .store-badges {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
-      color: var(--navy);
-      font-weight: 700;
-      font-size: 0.875rem;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      transition: filter 0.15s, transform 0.15s;
-      letter-spacing: -0.01em;
-    }
-
-    .store-badge:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-    .store-note { font-size: 0.75rem; color: var(--text-dim); }
-
-    /* ── FEATURES GRID ── */
-    .features {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto 72px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-    }
-
-    .feature-card {
-      padding: 22px 20px;
-    }
-
-    .feature-card .f-icon {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-    }
-
-    .feature-card h3 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .feature-card p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* ── STATS ROW ── */
-    .stats {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto 72px;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .stat-card {
-      padding: 24px 20px;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* ── LEGAL SECTION ── */
-    .section-wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 480px;
-      margin: 0 auto 64px;
-      padding: 0 24px;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 10px;
-      padding-left: 4px;
-    }
-
-    .link-list {
-      list-style: none;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--navy-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--navy-border);
-    }
-
-    .link-list li { border-bottom: 1px solid var(--navy-border); }
-    .link-list li:last-child { border-bottom: none; }
-
-    .link-list a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 20px;
-      text-decoration: none;
-      color: var(--text);
-      transition: background 0.12s;
-    }
-
-    .link-list a:hover { background: rgba(123,208,255,0.06); }
-
-    .link-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .link-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-
-    .icon-privacy  { background: rgba(123,208,255,0.12); }
-    .icon-terms    { background: rgba(189,194,255,0.12); }
-    .icon-support  { background: rgba(74,222,128,0.10); }
-
-    .link-text-block { display: flex; flex-direction: column; }
-
-    .link-desc {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
-
-    .chevron { color: var(--text-dim); font-size: 1rem; }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--navy-border);
-      padding: 28px 24px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-
-    footer a {
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.12s;
-    }
-
-    footer a:hover { color: var(--blue); }
-
-    @media (max-width: 520px) {
-      .hero h1 { font-size: 1.9rem; }
-      .nav-links { display: none; }
-      .stats { grid-template-columns: repeat(3,1fr); gap: 10px; }
-      .stat-value { font-size: 1.3rem; }
-    }
-  </style>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="google-site-verification" content="abe18f4e37ad2210" />
+<title>Wally - Personal Finance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "tertiary-fixed": "#e0e0ff",
+          "on-tertiary-fixed": "#000767",
+          "on-secondary": "#263143",
+          "surface-container": "#191f31",
+          "secondary-fixed": "#d8e3fb",
+          "error-container": "#93000a",
+          "inverse-primary": "#00668a",
+          "inverse-on-surface": "#2a3043",
+          "background": "#0c1324",
+          "primary-fixed": "#c4e7ff",
+          "outline": "#909097",
+          "on-secondary-fixed": "#111c2d",
+          "on-primary-fixed-variant": "#004c69",
+          "secondary": "#bcc7de",
+          "secondary-fixed-dim": "#bcc7de",
+          "surface-bright": "#33394c",
+          "surface-container-lowest": "#070d1f",
+          "surface": "#0c1324",
+          "on-primary-container": "#008abb",
+          "error": "#ffb4ab",
+          "surface-tint": "#7bd0ff",
+          "on-tertiary-container": "#6c77e1",
+          "on-tertiary-fixed-variant": "#2f3aa3",
+          "on-background": "#dce1fb",
+          "tertiary": "#bdc2ff",
+          "tertiary-fixed-dim": "#bdc2ff",
+          "surface-container-low": "#151b2d",
+          "surface-container-high": "#23293c",
+          "secondary-container": "#3e495d",
+          "on-primary": "#00354a",
+          "surface-dim": "#0c1324",
+          "surface-container-highest": "#2e3447",
+          "on-surface-variant": "#c6c6cd",
+          "primary-container": "#001a27",
+          "on-primary-fixed": "#001e2c",
+          "tertiary-container": "#00055c",
+          "primary-fixed-dim": "#7bd0ff",
+          "surface-variant": "#2e3447",
+          "inverse-surface": "#dce1fb",
+          "primary": "#7bd0ff",
+          "on-error-container": "#ffdad6",
+          "outline-variant": "#45464d",
+          "on-secondary-container": "#aeb9d0",
+          "on-surface": "#dce1fb",
+          "on-error": "#690005",
+          "on-tertiary": "#131e8c",
+          "on-secondary-fixed-variant": "#3c475a"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "1.5rem",
+          "full": "9999px"
+        },
+        "fontFamily": {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .glass-panel {
+    background: rgba(35, 41, 60, 0.4);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(196, 231, 255, 0.1);
+  }
+  .balance-orb {
+    filter: blur(80px);
+    background: radial-gradient(circle, #7bd0ff 0%, #bdc2ff 100%);
+    opacity: 0.15;
+  }
+  body {
+    background-color: #0c1324;
+    color: #dce1fb;
+    min-height: max(884px, 100dvh);
+  }
+</style>
 </head>
-<body>
+<body class="font-body selection:bg-primary selection:text-on-primary">
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-brand" href="/">
-      <div class="nav-logo"><img src="./logo.png" alt="Wally" /></div>
-      <span class="nav-name">Wally</span>
-    </a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#legal">Legal</a>
-      <a href="mailto:hassanzarif181@gmail.com">Support</a>
+<!-- TopAppBar -->
+<header class="bg-[#0c1324]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-blue-900/20 fixed top-0 w-full z-50">
+  <nav class="flex justify-between items-center px-8 h-20 w-full max-w-7xl mx-auto">
+    <div class="flex items-center gap-3">
+      <img src="./logo.png" alt="Wally" class="w-9 h-9 rounded-xl border border-white/10"/>
+      <span class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#7bd0ff] to-[#008abb] font-headline tracking-tight">Wally</span>
+    </div>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-[#7bd0ff] font-bold font-label text-sm hover:text-white transition-colors" href="#">Home</a>
+      <a class="text-[#c6c6cd] font-label text-sm hover:text-white transition-colors" href="#features">Features</a>
+      <a class="text-[#c6c6cd] font-label text-sm hover:text-white transition-colors" href="#legal">Legal</a>
+      <a class="bg-gradient-to-br from-primary to-on-primary-container px-6 py-2.5 rounded-full text-on-primary font-bold text-sm active:scale-95 duration-200" href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener">Download</a>
+    </div>
+    <div class="md:hidden">
+      <span class="material-symbols-outlined text-on-surface">menu</span>
     </div>
   </nav>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-logo">
-      <img src="./logo.png" alt="Wally app icon" />
-    </div>
-    <p class="hero-eyebrow">Personal Finance App</p>
-    <h1>Your money,<br><span>fully under control.</span></h1>
-    <p>Wally is a private, offline-first finance app. Track wallets, budgets, and transactions — no ads, no subscriptions, no data sent anywhere.</p>
+<main class="pt-32 overflow-hidden">
 
-    <div class="store-badges">
-      <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener">
-        ▶ &nbsp;Get it on Google Play
-      </a>
+  <!-- Hero Section -->
+  <section class="relative px-8 max-w-7xl mx-auto mb-32">
+    <div class="balance-orb absolute -top-20 -left-20 w-96 h-96 rounded-full pointer-events-none"></div>
+    <div class="grid grid-cols-1 gap-12 items-center">
+      <div class="max-w-3xl space-y-8">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-outline-variant/15">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="text-xs font-bold tracking-widest text-primary uppercase">v0.1.6 Now Live</span>
+        </div>
+        <h1 class="font-headline font-extrabold text-6xl md:text-8xl tracking-tight leading-[1.05] text-on-background">
+          Your money, fully <br/><span class="text-transparent bg-clip-text bg-gradient-to-br from-primary to-tertiary">under control</span>
+        </h1>
+        <p class="text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed">
+          Wally is a private, offline-first finance app. Track wallets, budgets, and transactions — no ads, no subscriptions, no data sent anywhere.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener" class="bg-gradient-to-br from-primary to-on-primary-container px-8 py-4 rounded-xl text-on-primary font-bold text-lg flex items-center gap-3 shadow-xl shadow-primary/20 active:scale-95 transition-transform">
+            Get Wally
+            <span class="material-symbols-outlined">download</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <p class="store-note">Android · Free download</p>
   </section>
 
-  <!-- STATS -->
-  <div class="stats" id="features">
-    <div class="stat-card glass">
-      <div class="stat-value">100%</div>
-      <div class="stat-label">Offline-first</div>
+  <!-- Metrics Bento Grid -->
+  <section class="px-8 max-w-7xl mx-auto mb-40">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="surface-container-high p-8 rounded-xl flex flex-col justify-between border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+          <span class="material-symbols-outlined text-8xl">dashboard_customize</span>
+        </div>
+        <p class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Modules Ready</p>
+        <h3 class="text-6xl font-headline font-black text-on-surface mt-4">26</h3>
+        <p class="text-on-surface-variant mt-2">Customizable Dashboard Cards</p>
+      </div>
+      <div class="bg-gradient-to-br from-primary/10 to-transparent p-8 rounded-xl border border-primary/20 relative overflow-hidden">
+        <p class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Global Support</p>
+        <h3 class="text-6xl font-headline font-black text-primary mt-4">4</h3>
+        <p class="text-on-surface-variant mt-2">Primary Languages Supported</p>
+      </div>
+      <div class="surface-container-high p-8 rounded-xl flex flex-col justify-between border border-white/5 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+          <span class="material-symbols-outlined text-8xl">block</span>
+        </div>
+        <p class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Privacy Score</p>
+        <h3 class="text-6xl font-headline font-black text-on-surface mt-4">0</h3>
+        <p class="text-on-surface-variant mt-2">Personal Data Collected</p>
+      </div>
     </div>
-    <div class="stat-card glass">
-      <div class="stat-value">0</div>
-      <div class="stat-label">Data collected</div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="px-8 max-w-7xl mx-auto mb-40" id="features">
+    <div class="mb-20 text-center space-y-4">
+      <h2 class="font-headline font-extrabold text-5xl text-on-background">Engineered for Sovereignty</h2>
+      <p class="text-on-surface-variant text-xl max-w-2xl mx-auto">Every tool you need to master your financial life, without the prying eyes of the cloud.</p>
     </div>
-    <div class="stat-card glass">
-      <div class="stat-value">4</div>
-      <div class="stat-label">Languages</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Wallet Management</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Multiple wallets for bank, cash, crypto, or credit cards — each with its own currency.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">receipt_long</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Transactions</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Full income, expense, and transfer tracking with categories, payees, location, and full-text search.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">mic_none</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Voice Input</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Add transactions by speaking naturally. On-device AI parses your words — multiple entries at once.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">pie_chart</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Budgets</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Monthly spending limits by category or wallet, with 80% and 100% overspend alerts.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">sync</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Recurring</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Automate repeating payments — daily, weekly, monthly, or custom — with notification reminders.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">payments</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Debt Tracking</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Track money lent and borrowed with full repayment history. Auto-closes when fully paid.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">grid_view</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Dashboard</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">26 modular cards — reorder, add, or remove. Per-card period selector and pull-to-refresh.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">insights</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Analytics</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Pie, bar, and line charts. 6-month income vs expense comparison with auto FX conversion.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">map</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Spending Map</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Interactive map of geotagged transactions via OpenStreetMap.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">query_stats</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Cash Flow Forecast</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">30-day balance projection based on your recurring patterns.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">backup</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Export &amp; Backup</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">CSV, JSON export. Encrypted Google Drive backup with auto-sync.</p>
+      </div>
+      <div class="surface-container-low p-8 rounded-xl space-y-6 hover:bg-surface-container-high transition-colors group">
+        <span class="material-symbols-outlined text-primary text-4xl">currency_exchange</span>
+        <h4 class="font-headline font-bold text-xl text-on-surface">Multi-Currency</h4>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Live exchange rates cached locally. FX preview on every transfer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="px-8 max-w-7xl mx-auto mb-40">
+    <div class="surface-container-highest p-12 md:p-24 rounded-[2rem] border border-white/5 relative overflow-hidden text-center">
+      <div class="balance-orb absolute inset-0 m-auto w-1/2 h-1/2 opacity-20"></div>
+      <div class="relative z-10 space-y-8">
+        <h2 class="font-headline font-extrabold text-4xl md:text-6xl text-on-background">Take back your privacy.</h2>
+        <p class="text-on-surface-variant text-xl max-w-xl mx-auto">Start your journey toward offline-first financial freedom today.</p>
+        <div class="flex justify-center pt-8">
+          <a href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener" class="bg-gradient-to-br from-primary to-on-primary-container px-12 py-5 rounded-xl text-on-primary font-black text-xl shadow-2xl shadow-primary/20 active:scale-95 transition-transform inline-block">
+            Download Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#0c1324] w-full py-16 px-8 border-t border-white/5" id="legal">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+    <div class="space-y-6">
+      <div class="flex items-center gap-3">
+        <img src="./logo.png" alt="Wally" class="w-8 h-8 rounded-xl border border-white/10"/>
+        <span class="font-headline font-bold text-[#dce1fb] text-2xl tracking-tight">Wally</span>
+      </div>
+      <p class="text-[#c6c6cd] font-inter text-sm max-w-xs leading-relaxed">
+        The premium standard for offline-first financial sovereignty. Your data never leaves your device.
+      </p>
+      <p class="font-inter text-sm text-[#c6c6cd]">© 2026 Hassan · Wally Personal Finance.</p>
+    </div>
+    <div class="grid grid-cols-2 gap-8">
+      <div class="space-y-4">
+        <h5 class="text-[#7bd0ff] font-bold text-sm tracking-widest uppercase">Product</h5>
+        <ul class="space-y-3">
+          <li><a class="text-[#c6c6cd] hover:text-[#7bd0ff] transition-all" href="#features">Features</a></li>
+          <li><a class="text-[#c6c6cd] hover:text-[#7bd0ff] transition-all" href="https://play.google.com/store/apps/details?id=com.hassan171.wallet" target="_blank" rel="noopener">Download</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <h5 class="text-[#7bd0ff] font-bold text-sm tracking-widest uppercase">Legal &amp; Support</h5>
+        <ul class="space-y-3">
+          <li><a class="text-[#c6c6cd] hover:text-[#7bd0ff] transition-all" href="./terms-of-service.html">Terms of Service</a></li>
+          <li><a class="text-[#c6c6cd] hover:text-[#7bd0ff] transition-all" href="./privacy-policy.html">Privacy Policy</a></li>
+          <li><a class="text-[#c6c6cd] hover:text-[#7bd0ff] transition-all" href="mailto:hassanzarif181@gmail.com">Contact Support</a></li>
+        </ul>
+      </div>
     </div>
   </div>
+</footer>
 
-  <!-- FEATURES -->
-  <div class="features">
-    <div class="feature-card glass">
-      <div class="f-icon">🔒</div>
-      <h3>Private by Design</h3>
-      <p>All data lives on your device. No account needed, no server, no tracking.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="f-icon">🎙️</div>
-      <h3>Voice Input</h3>
-      <p>Add transactions by speaking. On-device AI parses your words instantly.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="f-icon">📊</div>
-      <h3>Budgets & Charts</h3>
-      <p>Set budgets per category and visualize spending trends with beautiful charts.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="f-icon">💱</div>
-      <h3>Multi-Currency</h3>
-      <p>Manage wallets in any currency with live exchange rate conversion.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="f-icon">🔁</div>
-      <h3>Recurring</h3>
-      <p>Schedule recurring transactions — subscriptions, rent, salary — automatically.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="f-icon">📤</div>
-      <h3>Export</h3>
-      <p>Export your data as CSV or PDF anytime. Your data, your format.</p>
-    </div>
-  </div>
-
-  <!-- LEGAL -->
-  <div class="section-wrap" id="legal">
-    <p class="section-label">Legal &amp; Support</p>
-    <ul class="link-list">
-
-      <li>
-        <a href="./privacy-policy.html">
-          <span class="link-label">
-            <span class="link-icon icon-privacy" aria-hidden="true">🔒</span>
-            <span class="link-text-block">
-              <span>Privacy Policy</span>
-              <span class="link-desc">Last updated April 2026</span>
-            </span>
-          </span>
-          <span class="chevron">›</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="./terms-of-service.html">
-          <span class="link-label">
-            <span class="link-icon icon-terms" aria-hidden="true">📄</span>
-            <span class="link-text-block">
-              <span>Terms of Service</span>
-              <span class="link-desc">Last updated April 2026</span>
-            </span>
-          </span>
-          <span class="chevron">›</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="mailto:hassanzarif181@gmail.com">
-          <span class="link-label">
-            <span class="link-icon icon-support" aria-hidden="true">✉️</span>
-            <span class="link-text-block">
-              <span>Contact Support</span>
-              <span class="link-desc">hassanzarif181@gmail.com</span>
-            </span>
-          </span>
-          <span class="chevron">›</span>
-        </a>
-      </li>
-
-    </ul>
-  </div>
-
-  <footer>
-    &copy; 2026 Hassan &nbsp;·&nbsp; Wally — Personal Finance
-    &nbsp;·&nbsp; <a href="./privacy-policy.html">Privacy</a>
-    &nbsp;·&nbsp; <a href="./terms-of-service.html">Terms</a>
-  </footer>
-
-</body>
-</html>
+</body></html>
