@@ -6,131 +6,196 @@
   <title>Terms of Service — Wally</title>
   <link rel="canonical" href="https://hassanzarif181.github.io/wally-legal/terms-of-service" />
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --text-primary:   #111827;
-      --text-secondary: #4b5563;
-      --text-muted:     #6b7280;
-      --border:         #e5e7eb;
-      --bg:             #ffffff;
-      --accent:         #1d4ed8;
-      --accent-light:   #eff6ff;
-      --radius:         6px;
+      --navy:         #0C1324;
+      --navy-card:    rgba(255,255,255,0.05);
+      --navy-border:  rgba(255,255,255,0.08);
+      --blue:         #7BD0FF;
+      --purple:       #BDC2FF;
+      --text:         #E8EDF5;
+      --text-secondary: #A8B4C4;
+      --text-muted:   #8A96A8;
+      --text-dim:     #5A6478;
+      --green:        #4ade80;
+      --green-dim:    rgba(74,222,128,0.10);
     }
 
-    html {
-      font-size: 16px;
-    }
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.7;
-      padding: 40px 20px 80px;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
     }
 
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 85% 5%, rgba(189,194,255,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 15% 85%, rgba(123,208,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* ── Header ─────────────────────────────── */
-    header {
-      margin-bottom: 48px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(12,19,36,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--navy-border);
     }
 
-    .app-name {
-      font-size: 13px;
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--blue);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .nav-back:hover { opacity: 0.75; }
+
+    .nav-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      overflow: hidden;
+      border: 1px solid rgba(123,208,255,0.2);
+    }
+
+    .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .nav-title {
+      font-size: 0.875rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      margin-bottom: 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--purple);
       margin-bottom: 10px;
     }
 
     header h1 {
       font-size: 2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 10px;
     }
 
     .meta {
-      font-size: 0.875rem;
-      color: var(--text-muted);
+      font-size: 0.825rem;
+      color: var(--text-dim);
     }
 
-    /* ── Table of Contents ───────────────────── */
+    /* ── TOC ── */
     .toc {
-      background: var(--accent-light);
-      border: 1px solid #bfdbfe;
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-bottom: 48px;
+      background: var(--navy-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toc::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(189,194,255,0.09) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(123,208,255,0.06) 0%, transparent 50%);
+      pointer-events: none;
     }
 
     .toc-title {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+      color: var(--text-dim);
+      margin-bottom: 14px;
     }
 
-    .toc ol {
-      padding-left: 20px;
-    }
-
-    .toc li {
-      margin-bottom: 4px;
-    }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin-bottom: 5px; }
 
     .toc a {
-      font-size: 0.9rem;
-      color: var(--accent);
+      font-size: 0.875rem;
+      color: var(--purple);
       text-decoration: none;
+      transition: opacity 0.12s;
     }
 
-    .toc a:hover {
-      text-decoration: underline;
-    }
+    .toc a:hover { opacity: 0.7; }
 
-    /* ── Sections ────────────────────────────── */
-    section {
-      margin-bottom: 44px;
-    }
+    /* ── SECTIONS ── */
+    section { margin-bottom: 44px; }
 
     section h2 {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--text);
       letter-spacing: -0.01em;
       margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--navy-border);
     }
 
     p {
       margin-bottom: 14px;
       color: var(--text-secondary);
-      font-size: 0.95rem;
+      font-size: 0.925rem;
     }
 
-    p:last-child {
-      margin-bottom: 0;
-    }
+    p:last-child { margin-bottom: 0; }
+    p strong { color: var(--text); }
 
     ul {
       padding-left: 20px;
@@ -139,87 +204,86 @@
 
     li {
       margin-bottom: 8px;
-      color: #4b5563;
-      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-size: 0.925rem;
     }
 
-    /* ── Highlight box ───────────────────────── */
+    li strong { color: var(--text); }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { opacity: 0.75; }
+
+    /* ── HIGHLIGHT BOX ── */
     .highlight-box {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      border-left: 4px solid #16a34a;
-      border-radius: var(--radius);
+      background: var(--green-dim);
+      border: 1px solid rgba(74,222,128,0.20);
+      border-left: 3px solid var(--green);
+      border-radius: 10px;
       padding: 14px 18px;
       margin: 16px 0;
       font-size: 0.9rem;
-      color: #15803d;
+      color: var(--green);
     }
 
-    .highlight-box strong {
-      color: #14532d;
-    }
+    .highlight-box strong { color: #86efac; }
 
-    /* ── Contact box ─────────────────────────── */
+    /* ── CONTACT BOX ── */
     .contact-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 12px;
       padding: 20px 24px;
     }
 
     .contact-box p {
       margin-bottom: 6px;
+      font-size: 0.875rem;
     }
 
-    .contact-box a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .contact-box a:hover {
-      text-decoration: underline;
-    }
-
-    /* ── Footer ──────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
       margin-top: 64px;
       padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      border-top: 1px solid var(--navy-border);
+      font-size: 0.775rem;
+      color: var(--text-dim);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
+    footer a { color: var(--text-dim); }
+    footer a:hover { color: var(--blue); opacity: 1; }
 
-    footer a:hover {
-      color: var(--accent);
-    }
-
-    /* ── Responsive ──────────────────────────── */
     @media (max-width: 480px) {
-      body { padding: 24px 16px 60px; }
+      .container { padding: 32px 16px 60px; }
       header h1 { font-size: 1.6rem; }
+      .nav-title { display: none; }
     }
   </style>
 </head>
 <body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-back" href="./index.html">
+      <div class="nav-logo"><img src="./logo.png" alt="Wally" /></div>
+      ‹ Back
+    </a>
+    <span class="nav-title">Terms of Service</span>
+  </nav>
+
   <div class="container">
 
     <!-- Header -->
     <header>
-      <p class="app-name">Wally — Personal Finance</p>
+      <p class="eyebrow">Wally — Personal Finance</p>
       <h1>Terms of Service</h1>
       <p class="meta">Last updated: April 2026 &nbsp;·&nbsp; Effective immediately upon use</p>
     </header>
 
-    <!-- Table of Contents -->
+    <!-- TOC -->
     <nav class="toc" aria-label="Table of contents">
       <p class="toc-title">Contents</p>
       <ol>
@@ -245,7 +309,7 @@
       </p>
       <p>
         The App is developed and maintained by Hassan ("Developer", "we", "our"). These
-        Terms govern your use of Wally — Personal Finance on Android and iOS devices.
+        Terms govern your use of Wally — Personal Finance on Android devices.
       </p>
     </section>
 
@@ -320,7 +384,7 @@
         </li>
         <li>
           <strong>Google Drive API</strong> — used for optional backup only. Governed by
-          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Google's Terms of Service</a>.
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google's Terms of Service</a>.
         </li>
         <li>
           <strong>On-device speech recognition</strong> — processes microphone audio
@@ -344,9 +408,9 @@
       </p>
       <p>
         We do not warrant that the App will be error-free, uninterrupted, or free of
-        bugs. Currency exchange rates displayed in the App are provided for informational
-        purposes only and may not reflect real-time market rates. <strong>Do not rely on
-        the App for financial, legal, or investment decisions.</strong>
+        bugs. Currency exchange rates displayed in the App are for informational purposes
+        only and may not reflect real-time market rates. <strong>Do not rely on the App
+        for financial, legal, or investment decisions.</strong>
       </p>
     </section>
 
@@ -381,26 +445,24 @@
       </p>
       <p>
         Continued use of the App after updated Terms are posted constitutes your acceptance
-        of the revised Terms. If you do not agree to the updated Terms, please uninstall
-        the App.
+        of the revised Terms. If you do not agree to the updated Terms, please uninstall the App.
       </p>
       <p>
         The canonical version of these Terms is always available at:<br />
-        <a href="https://hassanzarif181.github.io/wally-legal/terms-of-service"
-           style="color: #1d4ed8;">https://hassanzarif181.github.io/wally-legal/terms-of-service</a>
+        <a href="https://hassanzarif181.github.io/wally-legal/terms-of-service">
+          hassanzarif181.github.io/wally-legal/terms-of-service
+        </a>
       </p>
     </section>
 
     <!-- 9. Contact -->
     <section id="contact">
       <h2>9. Contact Us</h2>
-      <p>
-        If you have any questions about these Terms, please contact us:
-      </p>
+      <p>If you have any questions about these Terms, please contact us:</p>
       <div class="contact-box">
         <p><strong>Developer:</strong> Hassan</p>
         <p><strong>App:</strong> Wally — Personal Finance</p>
-        <p><strong>Email:</strong> <a href="mailto:wallet.support@gmail.com">wallet.support@gmail.com</a></p>
+        <p><strong>Email:</strong> <a href="mailto:hassanzarif181@gmail.com">hassanzarif181@gmail.com</a></p>
         <p><strong>Legal home:</strong>
           <a href="https://hassanzarif181.github.io/wally-legal">
             hassanzarif181.github.io/wally-legal
@@ -411,13 +473,11 @@
 
     <!-- Footer -->
     <footer>
-      <span>&copy; 2026 Hassan. Wally — Personal Finance.</span>
+      <span>&copy; 2026 Hassan &nbsp;·&nbsp; Wally — Personal Finance</span>
       <span>
-        <a href="./index.html">Legal home</a>
+        <a href="./index.html">Home</a>
         &nbsp;·&nbsp;
         <a href="./privacy-policy.html">Privacy Policy</a>
-        &nbsp;·&nbsp;
-        <a href="./terms-of-service.html">Terms of Service</a>
       </span>
     </footer>
 
